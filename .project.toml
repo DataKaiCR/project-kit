@@ -1,0 +1,34 @@
+# Project Metadata
+
+[project]
+name = "PK - Project Kit"
+id = "project-kit"
+status = "active"
+type = "internal"
+
+[ownership]
+primary = "datakai"
+partners = []
+license_model = "open-source"
+
+[client]
+end_client = ""
+intermediary = ""
+my_role = "owner"
+
+[tech]
+stack = ["go", "cli"]
+domain = ["devtools", "automation"]
+
+[dates]
+started = "2025-11-19"
+completed = ""
+
+[links]
+scriptorium_project = ""
+repository = "https://github.com/datakaicr/pk"
+documentation = ""
+conduit_graph = ""
+
+[notes]
+description = "Cross-platform CLI tool for managing projects with .project.toml metadata. Supports project discovery, archiving, and cross-shell alias generation."

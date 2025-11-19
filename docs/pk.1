@@ -1,0 +1,250 @@
+.TH PK 1 "November 2025" "PK 1.0" "User Commands"
+.SH NAME
+pk \- project management tool with metadata tracking
+.SH SYNOPSIS
+.B pk
+[\fIcommand\fR] [\fIoptions\fR]
+.SH DESCRIPTION
+.B pk
+(Project Kit) is a command-line tool for managing software projects using
+.I .project.toml
+metadata files. It provides project lifecycle management, tmux session integration,
+and shell alias generation.
+.PP
+Projects are organized in
+.I ~/projects
+with archived projects in
+.I ~/archive
+and experimental projects in
+.I ~/workspace/scratch.
+
+.SH COMMANDS
+.SS Core Commands
+.TP
+.B pk new \fIname\fR
+Create a new project in ~/projects with .project.toml metadata.
+.TP
+.B pk list [\fIfilter\fR]
+List all projects. Optional filters: active, archived, datakai, westmonroe, product, client.
+.TP
+.B pk show \fIname\fR
+Display detailed information about a project.
+.TP
+.B pk edit \fIname\fR
+Open project metadata in $EDITOR.
+.TP
+.B pk rename \fIold\fR \fInew\fR
+Rename a project and update metadata.
+.TP
+.B pk delete \fIname\fR
+Permanently delete a project. Use --force to skip confirmation.
+.TP
+.B pk archive \fIname\fR
+Move project to ~/archive and mark as archived.
+.TP
+.B pk sync
+Generate shell aliases for all projects.
+
+.SS Scratch Projects
+.TP
+.B pk scratch new \fIname\fR
+Create experimental project in ~/workspace/scratch.
+.TP
+.B pk scratch list
+List all scratch projects.
+.TP
+.B pk scratch delete \fIname\fR
+Delete a scratch project.
+.TP
+.B pk promote \fIpath\fR
+Convert scratch project to full project.
+
+.SS Session Management
+.TP
+.B pk session [\fIproject\fR]
+Open project in tmux session. Without arguments, shows interactive selector with fzf.
+Requires tmux and fzf to be installed.
+
+.SS Cache Management
+.TP
+.B pk cache status
+Show cache information and age.
+.TP
+.B pk cache refresh
+Rebuild project cache.
+.TP
+.B pk cache clear
+Remove cache file.
+
+.SH OPTIONS
+.SS Global Options
+.TP
+.B \-h, \-\-help
+Show help for any command.
+
+.SS Delete Options
+.TP
+.B \-\-force
+Skip confirmation prompts and auto-kill tmux sessions.
+.TP
+.B \-\-keep-git
+Archive git history before deletion.
+
+.SS Archive Options
+.TP
+.B \-\-sync
+Auto-sync aliases after archiving (default: true).
+
+.SS Scratch New Options
+.TP
+.B \-\-no-git
+Skip git initialization.
+
+.SH PROJECT METADATA
+Projects are defined by
+.I .project.toml
+files with the following structure:
+.PP
+.nf
+[project]
+name = "Project Name"
+id = "project-id"
+status = "active"
+type = "product"
+
+[ownership]
+primary = "owner-name"
+
+[tmux]
+layout = "main-vertical"
+windows = [
+    {name = "editor", command = "nvim"},
+    {name = "server", command = "npm run dev"}
+]
+
+[context]
+aws_profile = "production"
+git_identity = "work"
+.fi
+
+.SH EXAMPLES
+.TP
+Create and work with scratch projects:
+.nf
+pk scratch new api-test
+cd ~/workspace/scratch/api-test
+# ... experiment ...
+pk promote api-test
+.fi
+.TP
+Project management:
+.nf
+pk list active
+pk show dojo
+pk edit dojo
+pk rename old-name new-name
+pk archive old-project
+.fi
+.TP
+Tmux session workflow:
+.nf
+pk session               # Interactive selector
+pk session dojo          # Open specific project
+.fi
+.TP
+Shell aliases:
+.nf
+pk sync
+source ~/.zshrc
+dojo                     # Jump to dojo project
+.fi
+
+.SH FILES
+.TP
+.I ~/.cache/pk/projects.json
+Cached project index (5-minute TTL).
+.TP
+.I ~/.config/zsh/project-aliases.zsh
+Generated shell aliases for zsh.
+.TP
+.I ~/.bash_aliases
+Generated shell aliases for bash.
+.TP
+.I ~/.config/fish/conf.d/project-aliases.fish
+Generated shell aliases for fish.
+
+.SH ENVIRONMENT
+.TP
+.B EDITOR
+Preferred text editor for
+.B pk edit
+command. Falls back to vim, then nano.
+.TP
+.B SHELL
+Detected automatically for alias generation.
+
+.SH DEPENDENCIES
+.SS Required
+None. Core commands work standalone.
+.SS Optional
+.TP
+.B tmux
+Required for
+.B pk session
+command.
+.TP
+.B fzf
+Required for interactive project selection in
+.B pk session.
+
+.SH EXIT STATUS
+.TP
+.B 0
+Success.
+.TP
+.B 1
+Error occurred (project not found, invalid arguments, etc.).
+
+.SH COMPLETION
+Shell completion is available for bash, zsh, and fish:
+.PP
+.nf
+pk completion zsh > $(brew --prefix)/share/zsh/site-functions/_pk
+pk completion bash > ~/.bash_completion.d/pk
+pk completion fish > ~/.config/fish/completions/pk.fish
+.fi
+.PP
+Or use the install script:
+.PP
+.nf
+./scripts/install-completion.sh
+.fi
+
+.SH WORKFLOW
+Typical project workflow:
+.PP
+1. Create scratch project for experimentation
+.br
+2. Promote to full project when ready
+.br
+3. Edit metadata as project evolves
+.br
+4. Use tmux sessions for development
+.br
+5. Archive when complete
+.br
+6. Delete if no longer needed
+
+.SH AUTHORS
+Written by Harrison Stecher.
+
+.SH REPORTING BUGS
+Report bugs at: https://github.com/datakaicr/pk/issues
+
+.SH COPYRIGHT
+Open source software.
+
+.SH SEE ALSO
+.BR tmux (1),
+.BR fzf (1),
+.BR git (1)

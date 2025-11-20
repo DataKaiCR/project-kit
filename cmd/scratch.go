@@ -22,7 +22,7 @@ var (
 var scratchCmd = &cobra.Command{
 	Use:   "scratch",
 	Short: "Manage scratch projects for experimentation",
-	Long: `Manage temporary projects in ~/workspace/scratch for quick experiments.
+	Long: `Manage temporary projects in ~/scratch for quick experiments.
 
 Scratch projects are not tracked by pk (no .project.toml) and don't get
 aliases. Use 'pk promote' to convert a scratch project into a real project.
@@ -36,10 +36,10 @@ Subcommands:
 var scratchNewCmd = &cobra.Command{
 	Use:   "new <name>",
 	Short: "Create a new scratch project",
-	Long: `Create a temporary project in ~/workspace/scratch for quick experiments.
+	Long: `Create a temporary project in ~/scratch for quick experiments.
 
 This will:
-  1. Create directory in ~/workspace/scratch/<name>
+  1. Create directory in ~/scratch/<name>
   2. Initialize git repository (optional: --no-git)
   3. Create basic README.md
 
@@ -56,7 +56,7 @@ Then later:
 var scratchDeleteCmd = &cobra.Command{
 	Use:   "delete <name>",
 	Short: "Delete a scratch project",
-	Long: `Remove a scratch project from ~/workspace/scratch.
+	Long: `Remove a scratch project from ~/scratch.
 
 This will check for active tmux sessions and optionally kill them.
 
@@ -104,7 +104,7 @@ func runScratchNew(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	scratchPath := filepath.Join(homeDir, "workspace", "scratch", projectName)
+	scratchPath := filepath.Join(homeDir, "scratch", projectName)
 
 	// Check if already exists
 	if _, err := os.Stat(scratchPath); err == nil {
@@ -142,7 +142,7 @@ func runScratchNew(cmd *cobra.Command, args []string) {
 
 	fmt.Printf("\n\033[32m✓\033[0m Scratch project '%s' created!\n", projectName)
 	fmt.Printf("\nNext steps:\n")
-	fmt.Printf("  cd ~/workspace/scratch/%s\n", projectName)
+	fmt.Printf("  cd ~/scratch/%s\n", projectName)
 	fmt.Printf("\nWhen ready to make it a real project:\n")
 	fmt.Printf("  pk promote %s\n", projectName)
 }
@@ -156,7 +156,7 @@ func runScratchDelete(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	scratchPath := filepath.Join(homeDir, "workspace", "scratch", projectName)
+	scratchPath := filepath.Join(homeDir, "scratch", projectName)
 
 	// Check if exists
 	if _, err := os.Stat(scratchPath); os.IsNotExist(err) {
@@ -229,7 +229,7 @@ func runScratchList(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	scratchDir := filepath.Join(homeDir, "workspace", "scratch")
+	scratchDir := filepath.Join(homeDir, "scratch")
 
 	// Check if scratch directory exists
 	if _, err := os.Stat(scratchDir); os.IsNotExist(err) {

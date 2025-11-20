@@ -60,7 +60,7 @@ func runSession(cmd *cobra.Command, args []string) {
 	projectsDir := filepath.Join(homeDir, "projects")
 	archiveDir := filepath.Join(homeDir, "archive")
 	scriptoriumDir := filepath.Join(homeDir, "scriptorium")
-	scratchDir := filepath.Join(homeDir, "workspace", "scratch")
+	scratchDir := filepath.Join(homeDir, "scratch")
 
 	// Find all projects (uses cache if available)
 	projects, err := cache.FindProjectsCached(projectsDir, archiveDir, scriptoriumDir)

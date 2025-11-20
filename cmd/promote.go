@@ -29,7 +29,7 @@ var promoteCmd = &cobra.Command{
   3. Initializing git if not already a repository
   4. Auto-syncing shell aliases
 
-Scratch projects in ~/workspace/scratch are automatically moved to ~/projects.
+Scratch projects in ~/scratch are automatically moved to ~/projects.
 
 Example:
   pk promote api-test                            # Auto-detects scratch project
@@ -70,7 +70,7 @@ func runPromote(cmd *cobra.Command, args []string) {
 	} else {
 		// Check if it's a simple name (no path separators) - might be scratch project
 		if !strings.Contains(args[0], string(filepath.Separator)) && !filepath.IsAbs(args[0]) {
-			scratchPath := filepath.Join(homeDir, "workspace", "scratch", args[0])
+			scratchPath := filepath.Join(homeDir, "scratch", args[0])
 			if _, err := os.Stat(scratchPath); err == nil {
 				dirPath = scratchPath
 				promoteMove = true // Auto-enable move for scratch projects

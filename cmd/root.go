@@ -35,7 +35,7 @@ Workflow:
   pk rename prototype app       # Better name
 
 Examples:
-  pk scratch new api-test       # Create in ~/workspace/scratch
+  pk scratch new api-test       # Create in ~/scratch
   pk scratch list               # List all scratch projects
   pk scratch delete old-test    # Remove scratch project
   pk new my-project         # Create in ~/projects

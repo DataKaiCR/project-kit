@@ -33,7 +33,7 @@ pk install
 ```bash
 # Create experimental project
 pk scratch new api-test
-cd ~/workspace/scratch/api-test
+cd ~/scratch/api-test
 
 # Promote to real project when ready
 pk promote api-test
@@ -58,7 +58,7 @@ pk delete <name>           # Remove permanently
 
 ### Scratch Projects
 
-Lightweight projects for experimentation in `~/workspace/scratch`.
+Lightweight projects for experimentation in `~/scratch`.
 
 ```bash
 pk scratch new <name>      # Create scratch project
@@ -158,7 +158,7 @@ Core commands work standalone. Optional features require external tools.
 
 ```bash
 pk scratch new prototype
-cd ~/workspace/scratch/prototype
+cd ~/scratch/prototype
 # ... experiment ...
 pk promote prototype
 pk edit prototype

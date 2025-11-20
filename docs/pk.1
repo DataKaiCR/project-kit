@@ -16,7 +16,7 @@ Projects are organized in
 with archived projects in
 .I ~/archive
 and experimental projects in
-.I ~/workspace/scratch.
+.I ~/scratch.
 
 .SH COMMANDS
 .SS Core Commands
@@ -48,7 +48,7 @@ Generate shell aliases for all projects.
 .SS Scratch Projects
 .TP
 .B pk scratch new \fIname\fR
-Create experimental project in ~/workspace/scratch.
+Create experimental project in ~/scratch.
 .TP
 .B pk scratch list
 List all scratch projects.
@@ -132,7 +132,7 @@ git_identity = "work"
 Create and work with scratch projects:
 .nf
 pk scratch new api-test
-cd ~/workspace/scratch/api-test
+cd ~/scratch/api-test
 # ... experiment ...
 pk promote api-test
 .fi

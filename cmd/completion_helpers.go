@@ -44,7 +44,7 @@ func validScratchNames(cmd *cobra.Command, args []string, toComplete string) ([]
 		return nil, cobra.ShellCompDirectiveNoFileComp
 	}
 
-	scratchDir := filepath.Join(homeDir, "workspace", "scratch")
+	scratchDir := filepath.Join(homeDir, "scratch")
 
 	// Check if scratch directory exists
 	if _, err := os.Stat(scratchDir); os.IsNotExist(err) {
@@ -77,7 +77,7 @@ func validAllProjectNames(cmd *cobra.Command, args []string, toComplete string) 
 	projectsDir := filepath.Join(homeDir, "projects")
 	archiveDir := filepath.Join(homeDir, "archive")
 	scriptoriumDir := filepath.Join(homeDir, "scriptorium")
-	scratchDir := filepath.Join(homeDir, "workspace", "scratch")
+	scratchDir := filepath.Join(homeDir, "scratch")
 
 	// Get regular projects
 	projects, err := cache.FindProjectsCached(projectsDir, archiveDir, scriptoriumDir)

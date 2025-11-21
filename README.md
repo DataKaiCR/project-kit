@@ -58,6 +58,10 @@ pk edit <name>             # Edit metadata
 pk rename <old> <new>      # Rename project
 pk archive <name>          # Move to ~/archive
 pk delete <name>           # Remove permanently
+
+pk pin add <name> <slot>   # Pin project to slot (1-5)
+pk pin list                # List pinned projects
+pk jump <slot>             # Jump to pinned project
 ```
 
 ### Scratch Projects
@@ -76,14 +80,53 @@ pk promote <name>          # Convert to full project
 Requires tmux and fzf.
 
 ```bash
-pk session                 # Interactive project selector
+pk session                 # Interactive project selector (all projects)
 pk session <name>          # Open specific project
+pk sessions                # Active sessions only (fast, Harpoon-style)
+pk sessions <name>         # Switch to active session directly
 ```
 
 Features:
 - Custom window layouts
 - Active session indicators
 - tmux configuration via `.project.toml`
+
+### Pinned Projects (Harpoon-style)
+
+Pin your most-used projects to numbered slots for instant access:
+
+```bash
+pk pin add pk 1            # Pin 'pk' to slot 1
+pk pin add dkos 2          # Pin 'dkos' to slot 2
+pk pin add conduit 3       # Pin 'conduit' to slot 3
+pk pin list                # Show all pins
+pk pin remove 1            # Remove pin from slot 1
+
+pk jump 1                  # Jump to slot 1 (opens tmux session)
+pk jump 2                  # Jump to slot 2
+```
+
+**Tmux Keybindings:**
+
+Add to `~/.tmux.conf` for instant jumping:
+
+```bash
+# Session jumping with Ctrl+b g <number>
+bind-key g switch-client -T jump
+bind-key -T jump 1 run-shell "pk jump 1"
+bind-key -T jump 2 run-shell "pk jump 2"
+bind-key -T jump 3 run-shell "pk jump 3"
+bind-key -T jump 4 run-shell "pk jump 4"
+bind-key -T jump 5 run-shell "pk jump 5"
+
+# Fast active session switcher (Ctrl+b F)
+bind-key F run-shell "tmux display-popup -E -w 90% -h 80% 'pk sessions'"
+```
+
+Then use:
+- `Ctrl+b g 1` - Jump to pinned project in slot 1
+- `Ctrl+b g 2` - Jump to pinned project in slot 2
+- `Ctrl+b F` - Switch between active sessions only
 
 ### Aliases
 

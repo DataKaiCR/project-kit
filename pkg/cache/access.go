@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/datakaicr/pk/pkg/config"
+	"github.com/datakaicr/pk/pkg/paths"
 )
 
 // AccessRecord tracks when a project was last accessed
@@ -32,7 +33,8 @@ func GetAccessFile() (string, error) {
 	return filepath.Join(cacheDir, "access.json"), nil
 }
 
-// LoadAccessRecords reads the access tracking file
+// LoadAccessRecords reads the access tracking file and validates paths
+// Automatically heals stale paths by searching for projects
 func LoadAccessRecords() (map[string]AccessRecord, error) {
 	accessFile, err := GetAccessFile()
 	if err != nil {
@@ -52,7 +54,45 @@ func LoadAccessRecords() (map[string]AccessRecord, error) {
 		return nil, err
 	}
 
+	// Validate and heal paths
+	healed, err := validateAndHealAccessRecords(records)
+	if err != nil {
+		// If validation fails, return original records
+		return records, nil
+	}
+
+	// If any paths were healed, save updated records
+	if healed {
+		SaveAccessRecords(records)
+	}
+
 	return records, nil
+}
+
+// validateAndHealAccessRecords checks if access record paths exist and updates them if stale
+// Returns true if any paths were healed
+func validateAndHealAccessRecords(records map[string]AccessRecord) (bool, error) {
+	resolver, err := paths.NewResolver()
+	if err != nil {
+		return false, err
+	}
+
+	healed := false
+	for projectID, record := range records {
+		newPath, wasHealed, err := resolver.ValidatePath(record.ProjectID, record.ProjectPath)
+		if err != nil {
+			// Project not found, keep original path
+			continue
+		}
+
+		if wasHealed {
+			record.ProjectPath = newPath
+			records[projectID] = record
+			healed = true
+		}
+	}
+
+	return healed, nil
 }
 
 // SaveAccessRecords writes the access tracking file

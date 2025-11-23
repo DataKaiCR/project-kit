@@ -6,6 +6,8 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+
+	"github.com/datakaicr/pk/pkg/paths"
 )
 
 // PinRecord represents a pinned project in a slot
@@ -30,7 +32,8 @@ func GetPinsFile() (string, error) {
 	return filepath.Join(cacheDir, "pins.json"), nil
 }
 
-// LoadPins reads all pinned projects
+// LoadPins reads all pinned projects and validates paths
+// Automatically heals stale paths by searching for projects
 func LoadPins() (map[int]PinRecord, error) {
 	pinsFile, err := GetPinsFile()
 	if err != nil {
@@ -50,7 +53,47 @@ func LoadPins() (map[int]PinRecord, error) {
 		return nil, err
 	}
 
+	// Validate and heal paths
+	healed, err := validateAndHealPins(pins)
+	if err != nil {
+		// If validation fails, return original pins
+		// This ensures we don't break if path resolver fails
+		return pins, nil
+	}
+
+	// If any paths were healed, save updated pins
+	if healed {
+		SavePins(pins)
+	}
+
 	return pins, nil
+}
+
+// validateAndHealPins checks if pin paths exist and updates them if stale
+// Returns true if any paths were healed
+func validateAndHealPins(pins map[int]PinRecord) (bool, error) {
+	resolver, err := paths.NewResolver()
+	if err != nil {
+		return false, err
+	}
+
+	healed := false
+	for slot, pin := range pins {
+		newPath, wasHealed, err := resolver.ValidatePath(pin.ProjectID, pin.ProjectPath)
+		if err != nil {
+			// Project not found, keep original path
+			// (User might mount it later, or it's temporarily unavailable)
+			continue
+		}
+
+		if wasHealed {
+			pin.ProjectPath = newPath
+			pins[slot] = pin
+			healed = true
+		}
+	}
+
+	return healed, nil
 }
 
 // SavePins writes pinned projects to disk

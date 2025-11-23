@@ -44,6 +44,57 @@ pk promote api-test
 pk session api-test
 ```
 
+## Configuration
+
+PK works out of the box with sensible defaults, but you can customize it for your workflow.
+
+### Directory Structure (Optional)
+
+By default, PK uses:
+- `~/projects` - Active projects
+- `~/archive` - Archived projects
+- `~/scratch` - Experimental projects
+- `~/scriptorium` - Knowledge base
+
+To customize these paths, create `~/.config/pk/config.toml`:
+
+```toml
+[paths]
+projects = "~/work"                    # Use "work" instead of "projects"
+archive = "~/work/archive"
+scratch = "~/work/scratch"
+scriptorium = "~/scriptorium"
+```
+
+See `docs/config.toml.example` for more examples.
+
+### Self-Healing Cache
+
+PK automatically detects and fixes stale paths after server migrations or directory moves. When you migrate to a new machine:
+
+1. Copy or clone your projects
+2. Install PK
+3. Run `pk doctor` to validate setup
+4. PK automatically updates cached paths on first use
+
+No manual cache cleanup needed! The cache is designed to be ephemeral and self-healing.
+
+### Diagnostics
+
+Run `pk doctor` to check your installation:
+
+```bash
+pk doctor
+```
+
+This validates:
+- Directory structure
+- Dependencies (tmux, fzf)
+- Tmux configuration
+- Cache integrity
+- Path freshness
+- Config file validity
+
 ## Core Commands
 
 ### Project Management

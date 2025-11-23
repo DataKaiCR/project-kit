@@ -1,0 +1,33 @@
+# PK (Project Kit) Configuration File
+# Location: ~/.config/pk/config.toml
+#
+# This file is OPTIONAL. PK works perfectly with defaults.
+# Only create this file if you need to customize directory paths.
+
+[paths]
+# Customize where PK looks for projects
+# All paths support ~ for home directory expansion
+# If not specified, PK uses these defaults:
+#   projects    = "~/projects"
+#   archive     = "~/archive"
+#   scratch     = "~/scratch"
+#   scriptorium = "~/scriptorium"
+
+# Example: Use "work" instead of "projects"
+# projects = "~/work"
+
+# Example: Bundle everything under a workspace directory
+# projects = "~/workspace/projects"
+# archive = "~/workspace/archive"
+# scratch = "~/workspace/scratch"
+# scriptorium = "~/workspace/scriptorium"
+
+# Example: Separate personal and work projects
+# projects = "~/dev/personal"
+# archive = "~/dev/archive"
+# scratch = "~/dev/scratch"
+
+# Notes:
+# - Changes take effect immediately (no restart needed)
+# - PK will auto-heal stale paths after server migration
+# - Run `pk doctor` to validate your configuration

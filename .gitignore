@@ -27,3 +27,7 @@ Thumbs.db
 # Temporary files
 *.tmp
 /tmp/
+
+# AI Context (internal only, not for public repo)
+.context/
+.claude/

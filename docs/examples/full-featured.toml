@@ -7,16 +7,6 @@ id = "full-featured"
 status = "active"
 type = "product"
 
-[ownership]
-primary = "owner-name"
-partners = ["partner-1", "partner-2"]
-license_model = "proprietary"
-
-[client]
-end_client = "Acme Corp"
-intermediary = "Consulting Agency"
-my_role = "lead-developer"
-
 [tech]
 stack = ["golang", "postgresql", "react"]
 domain = ["backend", "api", "microservices"]
@@ -28,8 +18,32 @@ completed = ""
 [links]
 repository = "https://github.com/username/project"
 documentation = "https://docs.example.com"
+
+[notes]
+description = "Microservices platform for processing customer transactions with multi-cloud deployment"
+
+# Consultant extension (optional)
+[consultant]
+ownership = "datakai"
+client_name = "Acme Corp"
+client_type = "partner"
+partner = "Consulting Agency"
+my_role = "lead"
+deliverable_type = "product"
+license_model = "proprietary"
+billable = true
+rate_type = "fixed"
+
+# DataKai extension (optional)
+[datakai]
+visibility = "private"
 scriptorium_project = "project-notes"
 conduit_graph = "project-architecture"
+protocols = ["semantic-self-containment", "no-dry-runs"]
+dkos_version = "1.0"
+product_category = "infrastructure"
+revenue_model = "saas"
+maturity = "production"
 
 # Tmux session configuration
 [tmux]
@@ -51,6 +65,3 @@ gcloud_project = "my-gcp-project"
 databricks_profile = "prod"
 snowflake_account = "mycompany"
 git_identity = "work"
-
-[notes]
-description = "Microservices platform for processing customer transactions with multi-cloud deployment"

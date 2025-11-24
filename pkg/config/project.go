@@ -9,7 +9,7 @@ import (
 
 // Project represents a .project.toml file
 type Project struct {
-	Path string // Full path to project directory
+	Path string `toml:"-"` // Full path to project directory (internal, not serialized)
 
 	// ==========================================
 	// CORE SCHEMA (universal, always present)
@@ -39,8 +39,8 @@ type Project struct {
 	Links struct {
 		Repository         string `toml:"repository"`
 		Documentation      string `toml:"documentation"`
-		ScriptoriumProject string `toml:"scriptorium_project"` // LEGACY - migrates to datakai
-		ConduitGraph       string `toml:"conduit_graph"`       // LEGACY - migrates to datakai
+		ScriptoriumProject string `toml:"scriptorium_project,omitempty"` // LEGACY - migrates to datakai
+		ConduitGraph       string `toml:"conduit_graph,omitempty"`       // LEGACY - migrates to datakai
 	} `toml:"links"`
 
 	// [notes] section
@@ -105,13 +105,13 @@ type Project struct {
 		Partners     []string `toml:"partners"`
 		LicenseModel string   `toml:"license_model"`
 		Visibility   string   `toml:"visibility"` // WRONG location - migrates to datakai.visibility
-	} `toml:"ownership"`
+	} `toml:"ownership,omitempty"` // Read for migration, omitted when empty on write
 
 	LegacyClient struct {
 		EndClient    string `toml:"end_client"`
 		Intermediary string `toml:"intermediary"`
 		MyRole       string `toml:"my_role"`
-	} `toml:"client"`
+	} `toml:"client,omitempty"` // Read for migration, omitted when empty on write
 
 	// Track if migration occurred
 	migrated bool `toml:"-"`

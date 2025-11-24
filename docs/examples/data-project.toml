@@ -7,15 +7,20 @@ id = "data-pipeline"
 status = "active"
 type = "product"
 
-[ownership]
-primary = "data-team"
-
 [tech]
 stack = ["python", "spark", "sql"]
 domain = ["data-engineering", "etl"]
 
 [dates]
 started = "2025-01-15"
+completed = ""
+
+[links]
+repository = ""
+documentation = ""
+
+[notes]
+description = "ETL pipeline for processing customer data with Databricks and Snowflake"
 
 # Cloud context switching
 [context]
@@ -32,6 +37,3 @@ windows = [
     {name = "notebook", command = "jupyter lab"},
     {name = "cli", command = ""},
 ]
-
-[notes]
-description = "ETL pipeline for processing customer data with Databricks and Snowflake"

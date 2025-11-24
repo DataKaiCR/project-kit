@@ -198,14 +198,23 @@ id = "my-project"
 status = "active"
 type = "product"
 
-[ownership]
-primary = "owner-name"
+[tech]
+stack = ["python", "fastapi"]
+domain = ["api", "backend"]
 
 [dates]
 started = "2025-01-15"
+completed = ""
+
+[links]
+repository = "https://github.com/user/repo"
+documentation = ""
+
+[notes]
+description = "Brief project description"
 ```
 
-See `docs/examples/` for complete configuration examples.
+See `docs/examples/` and `docs/schema-design.md` for complete configuration examples and advanced features (consultant tracking, DataKai integration).
 
 ### Tmux Configuration
 

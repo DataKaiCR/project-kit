@@ -7,8 +7,17 @@ id = "my-project"
 status = "active"
 type = "product"
 
-[ownership]
-primary = "owner-name"
+[tech]
+stack = []
+domain = []
 
 [dates]
 started = "2025-01-15"
+completed = ""
+
+[links]
+repository = ""
+documentation = ""
+
+[notes]
+description = ""

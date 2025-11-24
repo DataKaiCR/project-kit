@@ -7,15 +7,20 @@ id = "my-web-app"
 status = "active"
 type = "product"
 
-[ownership]
-primary = "owner-name"
-
 [tech]
 stack = ["typescript", "react", "nodejs"]
 domain = ["web", "frontend"]
 
 [dates]
 started = "2025-01-15"
+completed = ""
+
+[links]
+repository = ""
+documentation = ""
+
+[notes]
+description = "Full-stack web application with React frontend and Node.js backend"
 
 # Custom tmux layout with multiple windows
 [tmux]
@@ -26,6 +31,3 @@ windows = [
     {name = "logs", command = "tail -f logs/app.log"},
     {name = "git", command = ""}
 ]
-
-[notes]
-description = "Full-stack web application with React frontend and Node.js backend"

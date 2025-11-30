@@ -144,6 +144,7 @@ func createProjectToml(path, name, projectPath string) error {
 	// DataKai extension (only for DataKai projects)
 	if newOwner == "datakai" {
 		project.DataKai.Visibility = "private" // Default for new DataKai projects
+		project.Dev.Roadmap = ".dev/ROADMAP.md" // Standard roadmap location for DataKai
 	}
 
 	// Write TOML file

@@ -64,6 +64,11 @@ type Project struct {
 		GitIdentity       string `toml:"git_identity"`
 	} `toml:"context"`
 
+	// [dev] section (optional) - internal development planning
+	Dev struct {
+		Roadmap string `toml:"roadmap"` // Path to roadmap file (e.g., ".dev/ROADMAP.md")
+	} `toml:"dev"`
+
 	// ==========================================
 	// CONSULTANT EXTENSION (optional)
 	// ==========================================

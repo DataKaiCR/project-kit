@@ -192,6 +192,12 @@ func createPromoteProjectToml(path, name, projectPath string) error {
 	project.Links.ConduitGraph = ""
 	project.Notes.Description = ""
 
+	// DataKai extension (only for DataKai projects)
+	if promoteOwner == "datakai" {
+		project.DataKai.Visibility = "private"
+		project.Dev.Roadmap = ".dev/ROADMAP.md"
+	}
+
 	// Write TOML file
 	f, err := os.Create(path)
 	if err != nil {

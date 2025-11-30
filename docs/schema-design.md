@@ -48,6 +48,10 @@ gcloud_project = "my-project"
 databricks_profile = "personal"
 snowflake_account = "my-account"
 git_identity = "personal"
+
+# Internal development planning
+[dev]
+roadmap = ".dev/ROADMAP.md"  # Path to roadmap file
 ```
 
 ### Consultant Extension (Optional)
@@ -128,6 +132,9 @@ maturity = "experimental" | "mvp" | "production" | "deprecated"
 
 #### [notes]
 - `description` (string, required): Brief project description
+
+#### [dev]
+- `roadmap` (path, optional): Path to roadmap/task tracking file (e.g., ".dev/ROADMAP.md")
 
 ### Consultant Extension Fields
 

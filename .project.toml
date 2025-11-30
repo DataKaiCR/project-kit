@@ -6,6 +6,9 @@ id = "project-kit"
 status = "active"
 type = "internal"
 
+[dev]
+roadmap = ".dev/ROADMAP.md"
+
 [tech]
 stack = ["go", "cli"]
 domain = ["devtools", "automation"]
